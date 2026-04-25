@@ -1,0 +1,155 @@
+/** header area
+====================================== **/
+.page-header {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	border-bottom: 0.2rem solid $color_green;
+	padding: 0 0 0 3rem;
+	position: fixed;
+	left: 0;
+	top: 0;
+	z-index: 10;
+	width: 100%;
+	background: #fff;
+	&.is_active {
+		
+	}
+	@include sp {
+		padding: 0 0 0 1rem;
+		height: 7rem;
+	}
+}
+.logo {
+	width: 35.5rem;
+	a {
+		display: block;
+		line-height: 0;
+	}
+	@include sp {
+		width: 19rem;
+		position: relative;
+		z-index: 10;
+	}
+}
+.menu {
+	display: flex;
+	column-gap: 2.8rem;
+	&-item {
+		&_link {
+			display: flex;
+			flex-flow: column-reverse;
+			line-height: 1.6;
+			position: relative;
+			color: #000000;
+			&:after {
+				position: absolute;
+				content: '';
+				width: 100%;
+				height: 0.2rem;
+				left: 0;
+				bottom: -1rem;
+				background: $color_green;
+				transform: scale(0, 1);
+			    transform-origin: right top;
+			    transition: transform .3s;
+			    transition: transform .3s, -webkit-transform .3s;
+			}
+			.en {
+				font-size: 1.2rem;
+				font-weight: 500;
+				letter-spacing: 0.05em;
+				font-family: $font_en;
+			}
+			.ja {
+				display: inline-block;
+				font-size: 1.6rem;
+				font-weight: 700;
+				line-height: 110%;
+				letter-spacing: 0.06em;
+			}
+		}
+	}
+	@include pc {
+		&-item {
+			&_link {
+				.en {
+					display: none;
+				}
+				&:hover {
+					color: $color_green;
+					&:after {
+						transform-origin: left top;
+						transform: scale(1, 1);
+			    	}
+				}
+			}
+		}
+	}
+	@include sp {
+		display: block;
+		&-item {
+			+.menu-item {
+				margin-top: 0.2rem;
+			}
+			&_link {
+				padding: 1.4rem 0;
+				display: flex;
+				flex-flow: column;
+				color: $color_green;
+				border-bottom: 0.1rem solid $color_green;
+				.en {
+					font-size: 1.5rem;
+				}
+				.ja {
+					font-size: 1.5rem;
+				}
+			}
+		}
+	}
+}
+.menu-entry {
+	width: 12.8rem;
+	height: 8rem;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	letter-spacing: 0.1em;
+	font-weight: bold;
+	color: #fff;
+	margin-left: 4.5rem;
+	background: var(--orange, linear-gradient(90deg, #F90 0%, #FF4F03 100%));
+	@include sp {
+		margin-left: auto;
+		width: 6.8rem;
+		height: 6.8rem;
+		font-size: 1.1rem;
+		position: relative;
+		z-index: 9;
+	}
+}
+.g-nav {
+	@include pc {
+		display: flex;
+		align-items: center;
+		margin-left: auto;
+	}
+	@include sp {
+		background: #fff;
+		position: fixed;
+		left: 0;
+		top: 7rem;
+		width: 100%;
+		height: calc(100% - 6.8rem);
+		z-index: 9;
+		padding: 4rem 3.5rem 4rem;
+		overflow-y: auto;
+		opacity: 0;
+		visibility: hidden;
+		transition: all .3s ease;
+		&.open {
+			opacity: 1;
+			visibility: visible;
+		}
+	}
+}

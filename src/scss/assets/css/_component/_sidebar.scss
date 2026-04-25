@@ -1,0 +1,234 @@
+/** header area
+====================================== **/
+#sidebar {
+    padding: 0 1rem;
+    position: sticky;
+    top: 0;
+    overflow-y: auto;
+    height: 100vh;
+    .site-desc {
+        font-size: 1rem;
+        text-align: center;
+    }
+    .site-logo {
+        text-align: center;
+        margin: 5rem 0;
+        a {
+            display: inline-block;
+            width: calc(100/205 * 100%);
+        }
+    }
+    .site-nav {
+        &_item {
+            border-top: 0.1rem solid #9D9FA2;
+            &:last-child {
+                border-bottom: 0.1rem solid #9D9FA2;
+            }
+            .txt {
+                font-size: 1rem;
+                font-weight: bold;
+                white-space: nowrap;
+                margin-bottom: 0.5rem;
+            }
+            .tl {
+                font-size: 3rem;
+                color: $color_main;
+                line-height: 1.35;
+            }
+            &__link {
+                display: block;
+                padding: 1rem 0;
+                position: relative;
+                &:after {
+                    position: absolute;
+                    content: '';
+                    bottom: 1rem;
+                    right: 0;
+                    width: 4rem;
+                    height: 4rem;
+                }
+            }
+            /*&.mn-support {
+                .site-nav_item__link {
+                    &:after {
+                        background: url(../img/common/nav_ico1.svg);
+                        background-size: cover;
+                    }
+                }
+            }
+            &.mn-consult {
+                .site-nav_item__link {
+                    &:after {
+                        background: url(../img/common/nav_ico2.svg);
+                        background-size: cover;
+                    }
+                }
+            }
+            &.mn-sales {
+                .site-nav_item__link {
+                    &:after {
+                        background: url(../img/common/nav_ico3.svg);
+                        background-size: cover;
+                    }
+                }
+            }*/
+        }
+    }
+
+    .site-link {
+        display: flex;
+        flex-flow: row wrap;
+        margin: 2rem 0 0 -1rem;
+        &_item {
+            width: calc(100%/2 - 1rem);
+            margin: 0 0 1rem 1rem;
+            border: 0.1rem solid #000;
+            border-radius: 0.5rem;
+            box-shadow: 3px 3px 0px 0px rgba(177,179,182,1);
+            &_link {
+                width: 100%;
+                height: 100%;
+                display: flex;
+            }
+            &.sb-cta,
+            &.sb-rct {
+                height: 10rem;
+                background-color: #FFE600;
+                text-align: center;
+                .site-link_item_link {
+                    flex-flow: column;
+                    justify-content: center;
+                    align-items: center;
+                }
+                span {
+                    display: inline-block;
+                    font-size: 1.2rem;
+                    font-weight: bold;
+                    margin-top: 0.5rem;
+                    line-height: 1.35;
+                }
+            }
+            &.sb-cta {
+                img {
+                    width: 4rem;
+                    height: auto;
+                }
+            }
+            &.sb-rct {
+                img {
+                    width: 4.5rem;
+                    height: auto;
+                }
+            }
+            &.sb-part {
+                width: 100%;
+                .site-link_item_link {
+                    flex-flow: row;
+                    padding: 1.5rem 1rem;
+                    span {
+                        vertical-align: middle;
+                        font-size: 2.4rem;
+                        font-weight: bold;
+                    }
+                    img {
+                        width: 4rem;
+                        height: auto;
+                        vertical-align: middle;
+                        margin-right: 2rem;
+                    }
+                }
+            }
+            &.sp-play {
+                width: 100%;
+                border: none;
+                background-color: #C7C8CA;
+                .site-link_item_link {
+                    padding: 1rem;
+                    img {
+                        width: 2rem;
+                        height: 2rem;
+                        margin-right: 1rem;
+                    }
+                }
+            }
+        }
+    }
+
+    .site-cta {
+        text-align: center;
+        .tx {
+            font-size: 1.2rem;
+            font-weight: bold;
+        }
+        .tel {
+            display: inline-block;
+            color: $color_main;
+            font-size: 4.2rem;
+            font-weight: bold;
+            font-family: $font_en;
+            line-height: 1;
+        }
+        .sc {
+            font-size: 1.2rem;
+            a {
+                color: #23A2C1;
+                text-decoration: underline;
+            }
+        }
+        .metals {
+            display: flex;
+            flex-flow: row wrap;
+            justify-content: center;
+            margin: 3rem 0 0;
+            li {
+                width: 11rem;
+                height: 12.4rem;
+                display: flex;
+                flex-flow: column;
+                align-items: center;
+                justify-content: center;
+                background: url(../img/common/metal_ico.svg) left top no-repeat;
+                background-size: cover;
+                + li {
+                    margin-left: 1rem;
+                }
+                .tl {
+                    font-size: 1.4rem;
+                    font-weight: bold;
+                }
+                .num {
+                    color: #DB3428;
+                    margin-bottom: 1rem;
+                    margin-left: 1rem;
+                    line-height: 1;
+                    margin-top: 0;
+                    span {
+                        display: inline-block;
+                        font-size: 3.6rem;
+                        font-weight: bold;
+                        font-family: $font_en;
+                    }
+                    small {
+                        display: inline-block;
+                        vertical-align: super;
+                    }
+                }
+            }
+        }
+    }
+
+    @include sp {
+        position: fixed;
+        left: 0;
+        top: 0;
+        z-index: 9;
+        width: 100%;
+        height: 100%;
+        background-color: #fff;
+        overflow-y: auto;
+        padding: 3rem 1.5rem;
+        .site-logo {
+            margin: 3rem 0;
+        }
+    }
+}
