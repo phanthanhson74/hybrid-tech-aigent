@@ -844,6 +844,10 @@ button {
                 &:focus {
                     border-color: #0B5AE4;
                 }
+
+                &.is-error {
+                    border-color: #cf0100;
+                }
             }
         }
     }
@@ -1079,7 +1083,7 @@ button {
         display: block;
         font-size: 1.2rem;
         font-weight: 500;
-        color: #0B5AE4;
+        color: #cf0100;
         margin-top: 0.8rem;
     }
 
@@ -1206,6 +1210,14 @@ button {
         line-height: 200%;
         letter-spacing: 0.02em;
     }
+}
+
+.p-front__form-question[data-step="1"] .p-front__form-error {
+    margin-top: -1rem;
+}
+
+.p-front__form-question[data-step="4"] .p-front__form-checkbox-group+.p-front__form-error {
+    margin-top: -1rem;
 }
 
 

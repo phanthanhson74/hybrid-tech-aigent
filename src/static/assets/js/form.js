@@ -58,15 +58,6 @@
       }
     });
 
-    // Enterキーでフォーム送信を防止
-    form.addEventListener("keydown", function (event) {
-      if (event.key === "Enter") {
-        event.preventDefault();
-      }
-    });
-
-
-
     function updateView() {
       // 質問の表示切り替え
       questions.forEach(function (question, index) {
@@ -134,24 +125,32 @@
         const value = input.value.trim();
         const name = input.name;
 
-        // 空チェック
-        if (!value) {
-          showError(input, "入力してください");
-          isValid = false;
-          return;
-        }
-
         // 電話番号の形式チェック
         if (name === "tel") {
+          if (!value) {
+            showError(input, "電話番号を入力してください。");
+            isValid = false;
+            return;
+          }
           if (!/^[0-9]{10,11}$/.test(value)) {
             if (value.includes("-")) {
               showError(input, "ハイフンなしで入力してください");
             } else {
-              showError(input, "正しい電話番号を入力してください");
+              showError(input, "有効な電話番号を入力してください");
             }
             isValid = false;
             return;
           }
+        }
+
+        // 氏名
+        if (name === "name") {
+          if (!value) {
+            showError(input, "氏名を入力してください。");
+            isValid = false;
+            return;
+          }
+          return;
         }
 
         if (name === "age") {
@@ -164,11 +163,24 @@
       });
 
       // メールアドレス（任意）の形式チェック
-      const emailInput = currentQuestion.querySelector('.js-form-input[name="email"]');
+      const emailInput = currentQuestion.querySelector(
+        '.js-form-input[name="email"]'
+      );
+
       if (emailInput) {
         const emailValue = emailInput.value.trim();
-        if (emailValue && !/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(emailValue)) {
-          showError(emailInput, "正しいメールアドレスを入力してください");
+
+        // 空欄チェック
+        if (!emailValue) {
+          showError(emailInput, "メールアドレスを入力してください。");
+          isValid = false;
+        }
+
+        // 形式チェック
+        else if (
+          !/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(emailValue)
+        ) {
+          showError(emailInput, "メールアドレスの形式が正しくありません。");
           isValid = false;
         }
       }
@@ -234,12 +246,17 @@
       if (element.classList.contains("p-front__form-options")) {
         element.appendChild(errorMsg);
       } else if (element.classList.contains("p-front__form-checkbox-group")) {
-        // チェックボックスグループの場合は親要素に追加
         element.parentNode.appendChild(errorMsg);
       } else {
         const ageContainer = element.closest(".p-front__form-age");
         if (ageContainer) {
           ageContainer.parentNode.appendChild(errorMsg);
+          return;
+        }
+
+        // 生年月日コンテナの場合は親要素に追加
+        if (element.classList.contains("js-form-birthday")) {
+          element.parentNode.appendChild(errorMsg);
           return;
         }
 
@@ -282,7 +299,18 @@
         return;
       }
 
-      // セレクトボックスの場合は js-form-wrap からエラーメッセージを削除
+      // ★ 生年月日グループのエラーをクリア
+      const birthdayContainer = element.closest(".js-form-birthday");
+      if (birthdayContainer) {
+        birthdayContainer.classList.remove("is-error");
+        const errorMsg = birthdayContainer.parentNode.querySelector(".p-front__form-error");
+        if (errorMsg) {
+          errorMsg.parentNode.removeChild(errorMsg);
+        }
+        return;
+      }
+
+      // セレクトボックスの場合は p-front__form-select-wrap からエラーメッセージを削除
       const selectWrap = element.closest(".p-front__form-select-wrap");
       if (selectWrap) {
         const inputGroup = selectWrap.parentNode;
@@ -334,14 +362,14 @@
       });
 
       // 入力フィールド入力時
-      const inputs = form.querySelectorAll(".p-front__form-input");
+      const inputs = form.querySelectorAll(".js-form-input");
       inputs.forEach(function (input) {
         input.addEventListener("input", function () {
           clearElementError(input);
         });
       });
 
-      // セレクトボックス選択時
+      // セレクトボックス選択時（生年月日を含む）
       const selects = form.querySelectorAll(".p-front__form-select");
       selects.forEach(function (select) {
         select.addEventListener("change", function () {
