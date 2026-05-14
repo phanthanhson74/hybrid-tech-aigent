@@ -392,22 +392,27 @@
     }
 
     function submitForm() {
-      // 送信中の状態にする
-      submitBtn.disabled = true;
-      submitBtn.querySelector(".p-front__form-btn-text").textContent =
-        "送信中...";
+      // 送信中の状態にする
+      submitBtn.disabled = true;
+      submitBtn.querySelector(".p-front__form-btn-text").textContent =
+        "送信中...";
 
-      // reCAPTCHA v3トークンを取得してフォームを送信
-      grecaptcha.ready(function () {
-        grecaptcha
-          .execute("6LfdaoAsAAAAACdO7rTXoO_JWwnCFrlOxQwzSuoT", {
-            action: "submit",
-          })
-          .then(function (token) {
-            document.getElementById("recaptcha_response").value = token;
-            form.submit();
-          });
-      });
-    }
+      // reCAPTCHA v3トークンを取得してフォームを送信
+      var siteKey = form.getAttribute("data-recaptcha-site-key");
+      if (siteKey && typeof grecaptcha !== "undefined") {
+        grecaptcha.ready(function () {
+          grecaptcha.execute(siteKey, { action: "submit" }).then(function (token) {
+            var tokenInput = document.createElement("input");
+            tokenInput.type = "hidden";
+            tokenInput.name = "recaptcha_response";
+            tokenInput.value = token;
+            form.appendChild(tokenInput);
+            form.submit();
+          });
+        });
+      } else {
+        form.submit();
+      }
+    }
   }
 })();
